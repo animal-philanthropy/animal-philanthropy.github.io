@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vegan Impact Calculator</title>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    google.charts.load('current', {packages: ['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+      var yearsVegan = parseInt(document.getElementById("yearsVegan").value) || 0;
+      var sparedBirds = yearsVegan * 12;
+      var sparedFish = yearsVegan * 14;
+
+      var data = google.visualization.arrayToDataTable([
+        ['Animal', 'Number Spared'],
+        ['Farmed Birds', sparedBirds],
+        ['Farmed Fish', sparedFish]
+      ]);
+
+      var options = {
+        title: 'Vegan Impact',
+        legend: { position: 'none' },
+        vAxis: { title: 'Number Spared' }
+      };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById('chart'));
+      chart.draw(data, options);
+
+      document.getElementById('sparedBirds').textContent = sparedBirds;
+      document.getElementById('sparedFish').textContent = sparedFish;
+    }
+  </script>
+</head>
+<body>
+  <h1>Vegan Impact Calculator</h1>
+  
+  <label for="yearsVegan">Number of years vegan:</label>
+  <input type="number" id="yearsVegan" min="0" required>
+  <button onclick="drawChart()">Calculate</button>
+  
+  <h2>Estimated Impact</h2>
+  <div id="chart" style="width: 100%; height: 300px;"></div>
+  <p>Number of farmed birds spared: <span id="sparedBirds">0</span></p>
+  <p>Number of farmed fish spared: <span id="sparedFish">0</span></p>
+
+  <br><br><br> <!-- Add blank lines here -->
+
+  <h2>Benefits of a Plant-Based Diet</h2>
+  <p>A plant-based diet helps protect animals from unnecessary suffering and slaughter. By choosing not to consume animal products, individuals can significantly reduce the demand for farmed birds and fish, sparing their lives and preventing their exploitation.</p>
+  <p>Furthermore, adopting a plant-based lifestyle contributes to ecosystem preservation. Animal agriculture has a substantial impact on deforestation, greenhouse gas emissions, water pollution, and biodiversity loss. Shifting towards a plant-based diet helps mitigate these environmental issues and promotes a more sustainable future.</p>
+</body>
+</html>
